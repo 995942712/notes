@@ -5,7 +5,7 @@
 
 **1.初始化git项目**
 
-git init
+`git init`
 
 **2.将项目加入本地git仓库**
 
