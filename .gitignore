@@ -1,0 +1,14 @@
+
+# Log Files
+*.log
+/*/*.log
+
+# Intellij
+*.iml
+/*/*.iml
+
+#some local files
+*/.idea/
+.idea/
+
+
