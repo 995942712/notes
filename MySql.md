@@ -1,7 +1,5 @@
 
-
-
-
+# MySql 笔记
 
 **linux下mysql数据的导出和导入**
 
@@ -24,11 +22,6 @@
 导入mysql方法
 
 `mysql -uroot -p database < fileName.sql`
-
-
-
-
-
 
 
 

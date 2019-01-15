@@ -1,5 +1,31 @@
 
-# git 笔记
+# Git 笔记
+
+**git 同时推送到 gitee 和 github 上**
+
+1.创建 gitee 和 github 仓库
+
+2.克隆 github 项目代码到本地
+
+`git clone [项目路径]`
+
+3.修改 git 的配置文件 config
+
+[remote "origin"]
+
+    url = https://github.com/Tinywan/Html5-m3u8-RTMP.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "second"]
+
+    url = https://gitee.com/Tinywan/html5-dash-hls-rtmp.git
+    fetch = +refs/heads/*:refs/remotes/second/*
+
+注:
+
+`git push github master 会推送到 github`
+
+`git push gitee master 会推送到 gitee`
+
 
 # 一.新建git项目操作步骤
 
@@ -373,6 +399,10 @@ $ git stash pop`
 生成一个可供发布的压缩包
 
 `$ git archive`
+
+
+
+
 
 
 
