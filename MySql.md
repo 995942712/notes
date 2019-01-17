@@ -28,7 +28,12 @@
 
 
 
+MySql:/usr/local/java/mysql
+/etc/my.cnf
+/etc/init.d/mysql
 
+rpm -qa | grep -i mysql
+yum -y remove java-1.4.2-gcj-compat-1.4.2.0-40jpp.115
 
 
 
