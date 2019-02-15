@@ -1,5 +1,5 @@
 
-
+# Nginx 笔记
 
 Nginx:/usr/local/java/nginx-1.13.9
 启动服务路径:/usr/local/nginx/sbin/

@@ -374,82 +374,186 @@ wait,notify和notifyAll只能在同步控制方法或者同步控制块里面使
 原因:当程序的多条语句在操作线程共享数据时(如买票例子中的票就是共享资源),由于线程的随机性导致一个线程对多条语句,执行了一部分还没执行完,另一个线程抢夺到cpu执行权参与进来执行,此时就导致共享数据发生错误,比如买票例子中打印重票和错票的情况.
 解决方法:对多条操作共享数据的语句进行同步,一个线程在执行过程中其他线程不可以参与进来.
 
+锁:是对象,作用是保证线程同步,解决线程安全问题;持有锁的线程可以在同步中执行,没有锁的线程即使获得cpu执行权,也进不去.
 
+同步的前提:必须保证有两个以上线程;必须是多个线程使用同一个锁,即多条语句在操作线程共享数据;必须保证同步中只有一个线程在运行.
 
+同步的好处:同步解决了多线程的安全问题,弊端:多线程都需要判断锁,比较消耗资源.
 
+# 字符串
 
+**String类**
 
+字符串:多个字符组成的一个序列;字符串对象一旦被创建字符串常量值不改变.
 
+**StringBuffer类**
 
+字符串的缓冲区,是一个容器;它和String的区别是缓冲区可变长度的.
 
+**StringBuilder类**
 
+和StringBuffer的功能是一样的,是线程安全的,效率高.
 
+**基本数据类型的对象包装类**
 
+方便操作,用于和字符串进行相互转换.
 
+byte    ==> Byte
+short   ==> Short
+int     ==> Integer
+long    ==> Long
+float   ==> Float
+double  ==> Double
+boolean ==> Boolean
+char    ==> Character
 
+# 集合
 
+集合就是对对象进行存储最常用的一种方式.
 
+数组和集合区别
+数组长度固定,而集合长度是可变的;数组值可以存储对象,还可以存储基本数据类型,而集合只能存储对象,可以存储不同类型的对象.
 
+Collection:顶层接口
 
+**List集合**
 
+列表,元素是有序的,可以有重复元素,可以有null元素
 
+ArrayList(JDK1.2):底层是数组数据结构,特点是查询速度快,但是增删速度稍慢,因为当元素多时,增删一个元素则所有元素的角标都得改变,线程不同步,默认长度是10,当超过长度时,按50%延长集合长度.
 
+LinkedList(JDK1.2):底层链表数据结构,查询速度慢,因为每个元素只知道前面一个元素,但增删速度快,因为元素再多,增删一个,只要让其前后的元素重新相连即可,线程是不同步的.
 
+Vector(JDK1.0):底层数组数据结构.特点是查询和增删速度都很慢,默认长度是10,当超过长度时,按100%延长集合长度,线程同步.
 
+**Set集合**
 
+元素是无序的,元素不可以重复,可以有null元素.
 
+HashSet(JDK1.2):底层数据结构是哈希表、存取速度快、元素唯一、线程不同步.
+保证性元素唯一的原理:先判断元素的hashCode值是否相同,再判断两元素的equals方法是否为true(往HashSet里面存的自定义元素要复写hashCode和equals方法,以保证元素的唯一性)
 
+TreeSet:底层数据结构式二叉树,可以对Set集合中的元素进行排序,元素有序、线程不同步.
+保证元素唯一性的依据:compareTo方法return 0.
 
+**Map集合**
 
+顶层接口,该集合存储的是键值对,而且键是唯一的,Map和Set很像,Set集合底层就是使用了Map集合;Map集合没有迭代器,要取出元素必须先将Map集合转换成Set集合才能遍历元素.
 
+HashTable(JDK1.0):底层是哈希表数据结构,不可以使用null键和null值,线程同步,效率低.
+保证元素唯一性的依据:用作键的对象必须实现hashCode和equals方法.
 
+HashMap(JDK1.2):底层是哈希表数据结构,允许使用null键和null值,线程不同步,效率高.
+保证性元素唯一的原理:先判断元素的hashCode值是否相同,再判断两元素的equals方法是否为true(往HashSet里面存的自定义元素要复写hashCode和equals方法,以保证元素的唯一性)
 
+Map集合没有迭代器,以下是Map的两种取出方式:
+1.Set<K> keySet();返回此映射中包含的键的Set视图,将Map集合中所有的键存入Set集合,然后再通过Set集合的迭代器取出所有的键,再根据get方法获取每个键的值.
 
+`Map<String, Integer> map = new HashMap<String, Integer>();
+Set<String> keySet = map.keySet();
+Iterator<String> it = keySet.iterator();
+while (it.hasNext()) {
+    String keyString = it.next();
+    System.out.println(keyString+"-"+map.get(keyString));
+}`
 
+2.Set<Map.Entry<K,V>> entrySet();返回此映射中包含的映射关系的Set视图,将Map集合中的映射关系存入到Set集合中,这个映射关系的数据类型是Map.entry,再通过Map.Entry类的方法再要取出关系里面的键和值.
 
+`Map<String, String> map = new HashMap<String, String>();
+Set<Map.Entry<String, String>> entrySet = map.entrySet();
+Iterator<Map.Entry<String, String>> it = entrySet.iterator();
+while (it.hasNext()) {
+    Map.Entry<String, String> entry = it.next();
+    String key = entry.getKey();
+    String value = entry.getValue();
+}`
 
+**Map集合和Collection集合的区别**
 
+1.Map中一次存储是键值对;Collection中一次存储是单个元素.
+2.Map的存储使用的put方法;Collection存储使用的是add方法.
+3.Map集合没有迭代器,Map的取出,是将Map转成Set,在使用迭代器取出;Collection取出,使用就是迭代器.
+4.如果对象很多,必须使用集合存储;如果元素存在着映射关系,可以优先考虑使用Map存储或者用数组;如果没有映射关系,可以使用Collection存储.
 
+**迭代器(Iterator)**
 
+迭代器就是取出集合元素的方式.
+`public interface Iterator<E> {
+    boolean hasNext();//判断是否存在下一个对象元素
+    E next();//获取下一个元素
+    void remove();//移除元素
+}`
 
+**堆栈和队列**
 
+堆栈:先进后出,比如杯子里的水.
+队列:先进先出,比如水管的水.
 
+# 泛型
 
+泛型:是一个类型安全机制,JDK1.5后出现了泛型,用于解决集合框架的安全问题;泛型定义格式通过<>来定义要操作的引用数据类型,如ArrayList<String> al = new ArrayList<String>;
+两种泛型限定,向上限定:? extends E;E可以接收E类型或者E的子类;向下限定:? super E;E可以接收E类型或者E的父类.
 
+# IO流
 
+IO流概述:用来处理设备(硬盘，控制台，内存)间的数据;java中对数据的操作都是通过流的方式;java用于操作流的类都在io包中;按照流操作的数据的类型不同:分为字节流和字符流,字符流是为了方便中文的操作而来的;按照流的流向不同分为:输入流,输出流.
 
+**IO流常用基类**
 
+字节流
 
+输出字节流:OutputStream(字节写入流抽象类),FileOutputStream(字节写入流),BufferedOutputStream(字节写入流缓冲区),PrintStream(打印流).
+输入字节流:InputStream(字节读取流抽象类),FileInputStream(字节读取流),BufferedInputStream(字节读取流缓冲区).
 
+字符流
 
+输出字符流:Writer(字符写入流的抽象);FileWriter(字符写入流);BufferedWriter(字符写入流缓冲区);OutputStreamWriter(字符通向字节的转换流(涉及键盘录入时用));OutputStreamWriter(打印流，可处理各种类型的数据).
+输入字符流:Reader(字符读取流的抽象类);FileReader(字符读取流);LineNumberReader(跟踪行号的缓冲字符读取流);BufferedReader(字符读取流缓冲区);InputStreamReader(字节通向字符的转换流(涉及键盘录入时用)).
 
+**流操作的规律**
 
+1.先明确源和目的
+源:文本(用Reader),字节(用InputStream).
+目的:文本(用Writer),字节(用OutputStream).
 
+2.明确是不是纯文本
+是:用字符流.
+不是:用字节流.
 
+3.明确流体系后,通过设备来明确具体使用哪个流对象
+源设备:键盘(System.in),硬盘(文件流File),内存(数组流ArrayStream).
+目的设备:键盘(System.out),硬盘(文件流File),内存(数组流ArrayStream).
 
+# 网络编程
 
+**网络编程概述**
 
+网络模型:OSI参考模型,TCP/IP参考模型.
 
+网络通讯要素:IP地址,端口号,传输协议
 
+计算机网络:是指将地理位置不同的具有独立功能的多台计算机及其外部设备,通过通信线路连接起来,在网络操作系统,网络管理软件及网络通信协议的管理和协调下,实现资源共享和信息传递的计算机系统.
 
+IP地址:IP地址 = 网络号码+主机地址
+A类IP地址:第一段号码为网络号码,剩下的三段号码为本地计算机的号码.
+B类IP地址:前二段号码为网络号码,剩下的二段号码为本地计算机的号码.
+C类IP地址:前三段号码为网络号码,剩下的一段号码为本地计算机的号码.
 
+A类:1.0.0.1 ==> 127.255.255.254;10.X.X.X是私有地址(私有地址就是在互联网上不使用,而被用在局域网络中的地址);127.X.X.X是保留地址,用做循环测试用的.
+B类:128.0.0.1 ==> 191.255.255.254;172.16.0.0 ==> 172.31.255.255是私有地址;169.254.X.X是保留地址.
+C类:192.0.0.1 ==> 223.255.255.254;192.168.X.X是私有地址;
+D类:224.0.0.1 ==> 239.255.255.254;
+E类:240.0.0.1 ==> 247.255.255.254;
 
+各种网络分类方式
+按网络覆盖范围划分:局域网(几米至10公里以内),城域网(10~100公里),广域网(几百公里到几千公里),国际互联网.
+按网络拓扑结构划分:总线型网络,星形网络,环型网络,树状网络,混合型网络.
+按传输介质划分:有线网,无线网.
+按网络使用性质划分:公用网,专用网.
 
+网络模型:OSI模型,应用层,表示层,会话层,传输层,网络层,数据连接层,物理层.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+TCP/IP模型:应用层,传输层,网际层,主机至网络层.
 
 
 
