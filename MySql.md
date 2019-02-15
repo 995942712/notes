@@ -37,8 +37,8 @@ yum -y remove java-1.4.2-gcj-compat-1.4.2.0-40jpp.115
 
 
 
+分页查询
 
-
-
+`SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset`
 
 
