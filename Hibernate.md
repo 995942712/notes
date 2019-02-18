@@ -13,6 +13,8 @@ hibernate可以自动生成SQL语句,自动执行,使得Java程序员可以随�
 6. 提交事务;
 7. 关闭Session;
 8. 关闭SesstionFactory;
+![Image text](https://github.com/995942712/notes/blob/master/img/Hibernate工作原理1.png)
+![Image text](https://github.com/995942712/notes/blob/master/img/Hibernate工作原理2.png)
 
 
 
