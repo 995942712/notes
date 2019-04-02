@@ -102,6 +102,36 @@ System.out.println(book.getId());//脱管态(具有OID,与Session断开关联)
 2. 持久态对象(通过get/load,Query查询获得);持久==>瞬时:delete(被删除持久化对象,不建议再次使用);持久==>脱管:evict(清除一级缓存中某一个对象),close(关闭Session清除一级缓存),clear(清除一级缓存所有对象).
 3. 脱管态对象(无法直接获得);脱管==>瞬时:book.setId(null);删除对象OID;脱管==>持久:update,saveOrUpdate,lock(过时).
 
+**Hibernate防止SQL注入**
+1. 对参数名称进行绑定
+```
+Query query=session.createQuery(hql);
+query.setString(“name”, name);
+```
+2.对参数位置进行邦定
+```
+Query query=session.createQuery(hql);
+query.setString(0, name1);
+query.setString(1, name2);
+```
+3.setParameter()方法
+```
+Query query=session.createQuery(hql);
+query.setParameter(“name”, name, Hibernate.STRING);
+```
+4.setProperties()方法
+```
+Entity entity=new Entity();
+entity.setXx(“xx”);
+entity.setYy(100);
+Query query = session.createQuery(“from Entity c where c.xx=:xx and c.yy=:yy ”);
+query.setProperties(entity);
+```
+5.HQL拼接方法
+```
+String str = StringEscapeUtils.escapeSql("'");
+System.out.println(str);
+```
 
 
 
