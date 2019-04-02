@@ -37,9 +37,9 @@ MyBatis支持定制化SQL,存储过程以及高级映射,MyBatis避免了几乎�
 1. MyBatis专注于SQL本身,是一个足够灵活的DAO层解决方案.
 2. 对性能的要求很高,或者需求变化较多的项目,如互联网项目,MyBatis将是不错的选择.
 
-
-
-
+#### Mybatis防止SQL注入
+1. #{}：相当于JDBC中的PreparedStatement
+2. ${}：是输出变量的值
 
 
 
