@@ -41,10 +41,11 @@ git commit -m "first commit"`
 **3.在git 码云建好云端项目,生成git url**
 
 **4.连接云端仓库,将本地仓库代码提交到云端仓库**
-
-`git remote add origin https://gitee.com/xxx/xxx.git
+```
+git remote add origin https://gitee.com/xxx/xxx.git
 git push -u origin master
-git push --set-upstream origin master -f`
+git push --set-upstream origin master -f
+```
 
 **5.克隆项目**
 

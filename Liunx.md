@@ -197,12 +197,14 @@ ssh -l 用户名 -p 22 主机
 拒绝所有包:firewall-cmd --panic-on
 取消拒绝状态:firewall-cmd --panic-off
 查看是否拒绝:firewall-cmd --query-panic
- 
+
 那怎么开启一个端口呢
-添加:firewall-cmd --zone=public --add-port=80/tcp --permanent(--permanent永久生效,没有此参数重启后失效)
+添加:firewall-cmd --add-port=80/tcp --permanent(--permanent永久生效,没有此参数重启后失效)
+查看:firewall-cmd --permanent --list-ports
+使用互联网:firewall-cmd --permanent --list-services
 重新载入:firewall-cmd --reload
 查看:firewall-cmd --zone= public --query-port=80/tcp
-删除:firewall-cmd --zone= public --remove-port=80/tcp --permanent
+删除:firewall-cmd --remove-port=80/tcp --permanent
 ```
 
 
