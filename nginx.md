@@ -30,7 +30,7 @@ cd nginx-1.10.1
 
 6. 配置
 ```
-./configure
+./configure --prefix=/usr/local/nginx
 ```
 
 7. 编译安装
@@ -49,7 +49,7 @@ whereis nginx
 cd /usr/local/nginx/sbin/
 ./nginx 
 ./nginx -s stop
-./nginx -s quit
+./nginx -s quit(完整停止,推荐)
 ./nginx -s reload
 
 查询nginx进程
